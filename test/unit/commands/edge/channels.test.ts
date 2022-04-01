@@ -1,4 +1,4 @@
-import { Channel, ChannelsEndpoint } from '@smartthings/core-sdk'
+import { Channel, ChannelsEndpoint, SmartThingsClient } from '@smartthings/core-sdk'
 
 import { APICommand, outputListing } from '@smartthings/cli-lib'
 
@@ -78,7 +78,8 @@ describe('ChannelsCommand', () => {
 		expect(await listFunction()).toBe(channelList)
 
 		expect(listChannelsMock).toHaveBeenCalledTimes(1)
-		expect(listChannelsMock).toHaveBeenCalledWith(expect.any(APICommand), 'HUB', 'subscriber-id')
+		expect(listChannelsMock).toHaveBeenCalledWith(expect.any(SmartThingsClient),
+			{ subscriberType: 'HUB', subscriberId: 'subscriber-id' })
 	})
 
 	test('get item function uses channels.get with id', async () => {
